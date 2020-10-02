@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorAccent"
     android:layout_height="match_parent"
     tools:context=".Main2Activity">
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="264dp"
+        android:layout_height="59dp"
         android:layout_marginTop="60dp"
-        android:text="CAST YOUR VOTE"
+        android:textAlignment="center"
+        android:text="@string/cast_your_vote"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +22,9 @@
     <Button
         android:id="@+id/vote"
         android:layout_width="164dp"
+        android:background="#8D49ED"
         android:layout_height="67dp"
-        android:text="VOTE"
+        android:text="@string/vote"
         android:textSize="25sp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
