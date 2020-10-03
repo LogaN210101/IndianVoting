@@ -7,9 +7,4 @@ public class VoterReset {
         flag=f;
         name=n;
     }
-    VoterReset()
-    {
-        flag = 0;
-        name="";
-    }
 }
