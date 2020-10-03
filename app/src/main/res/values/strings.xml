@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">IndianVoting</string>
+    <string name="cast_your_vote">CAST YOUR VOTE</string>
+    <string name="vote">VOTE</string>
+    <string name="go_to_ballot">Go to Ballot</string>
+    <string name="unique_id">Unique ID</string>
+    <string name="name">Name</string>
 </resources>
