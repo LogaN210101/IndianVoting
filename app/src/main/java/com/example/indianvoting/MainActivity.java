@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button n;
+    Button n, n2;
     EditText e1,e2;
     DatabaseReference db;
     List<String> people;
@@ -37,9 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         n=findViewById(R.id.next);
+        n2=findViewById(R.id.newsb);
         e1=findViewById(R.id.name);
         e2=findViewById(R.id.uid);
         n.setOnClickListener(this);
+        n2.setOnClickListener(this);
         db = FirebaseDatabase.getInstance().getReference();
         people =new ArrayList<>();
 
@@ -60,15 +62,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
             validity(name, id);
-
-
-
+        }
+        else if(v==n2)
+        {
+            news();
         }
 
     }
 
+    private void news() {
+        Intent i = new Intent(MainActivity.this, MainActivity2.class);
+        startActivity(i);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void validity(final String nm, final String id) {
+    private void validity( final String nm, final String id) {
         db.child("voterList").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
@@ -77,39 +85,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     VoterReset vr = ds.getValue(VoterReset.class);
                     people.add(ds.getKey() + "$" + vr.name + "$" + vr.flag);
-
-
                 }
-
-                for (String p : people) {
-                    int fl = Integer.parseInt(p.substring(p.lastIndexOf('$') + 1));
-                    if (id.equals(p.substring(0, p.indexOf('$'))) && nm.equals(p.substring(p.indexOf('$') + 1, p.lastIndexOf('$'))) && fl == 0) {
-                        /*Bundle extra=new Bundle();
-                        extra.putString("Data", p);*/
-                        t=1;
-                        s=p;
-                        break;
-                    }
-                }
-                if(t==1)
-                {
-                    Intent i = new Intent(MainActivity.this, Main2Activity.class);
-                    i.putExtra("Data",s);
-                    Toast.makeText(getApplicationContext(), "Vote Here", Toast.LENGTH_SHORT).show();
-                    startActivity(i);
-                }
-                else {
-                Toast.makeText(getApplicationContext(), "name does not match with id or you have already voted", Toast.LENGTH_SHORT).show();}
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
 
 
         });
+        for (String p : people) {
+            int fl = Integer.parseInt(p.substring(p.lastIndexOf('$') + 1));
+            if (id.equals(p.substring(0, p.indexOf('$'))) && nm.equals(p.substring(p.indexOf('$') + 1, p.lastIndexOf('$'))) && fl == 0) {
+                Intent i = new Intent(MainActivity.this, Main2Activity.class);
+                i.putExtra("Data",p);
+                Toast.makeText(getApplicationContext(), "Vote Here", Toast.LENGTH_SHORT).show();
+                startActivity(i);
+                return;
+
+
+            }
+        }
+        Toast.makeText(getApplicationContext(), "name does not match with id or you have already voted", Toast.LENGTH_SHORT).show();
 
 
     }
