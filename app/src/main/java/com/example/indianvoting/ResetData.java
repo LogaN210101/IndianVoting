@@ -6,8 +6,4 @@ public class ResetData {
     {
         count = c;
     }
-    ResetData()
-    {
-        count=0;
-    }
 }
